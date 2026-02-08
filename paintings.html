@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paintings - Majestic Views</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:Arial, sans-serif; margin:0; padding:0; background-color:#f5f5f5;}
+    header {background-color:#007cba; color:white; padding:20px 40px; margin-bottom:30px; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+    header h1 {margin:0; font-size:28px; display:inline-block;}
+    header nav {display:inline-block; float:right; margin-top:5px;}
+    header nav a {color:white; text-decoration:none; margin-left:25px; font-size:16px;}
+    header nav a:hover {text-decoration:underline;}
+    .paintings-container {padding:0 40px 40px 40px;}
+    .paintings-container h2 {font-size:32px; margin:30px 0; text-align:center; color:#333;}
+    .filters {display:flex; gap:10px; margin:20px 0; justify-content:center; flex-wrap:wrap;}
+    .filters button {padding:8px 15px; background:#007cba; color:white; border:none; border-radius:4px; cursor:pointer; font-size:14px;}
+    .filters button:hover {background:#005a87;}
+    .filters button.active {background:#28a745;}
+    .paintings-grid {display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:20px; margin-bottom:40px;}
+    .painting-card {background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:transform 0.2s, box-shadow 0.2s; cursor:pointer;}
+    .painting-card:hover {transform:translateY(-5px); box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+    .painting-image {background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:40px 20px; text-align:center; font-size:80px; min-height:250px; display:flex; align-items:center; justify-content:center;}
+    .painting-card:nth-child(3n) .painting-image {background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);}
+    .painting-card:nth-child(3n+1) .painting-image {background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);}
+    .painting-card:nth-child(3n+2) .painting-image {background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);}
+    .painting-info {padding:20px;}
+    .painting-info h3 {font-size:18px; margin:10px 0; color:#333;}
+    .artist {color:#666; font-size:13px; margin:5px 0;}
+    .year {color:#999; font-size:12px; margin:5px 0;}
+    .painting-price {font-size:22px; font-weight:bold; color:#007cba; margin:15px 0;}
+    .painting-desc {color:#666; font-size:13px; line-height:1.4; margin:10px 0;}
+    .view-btn {background:#007cba; color:white; padding:10px; border:none; border-radius:4px; cursor:pointer; width:100%; font-weight:bold; margin-top:10px;}
+    .view-btn:hover {background:#005a87;}
+    .modal {display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6);}
+    .modal-content {background-color:#fff; margin:auto; padding:30px; border-radius:8px; width:90%; max-width:600px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);}
+    .close {color:#aaa; float:right; font-size:28px; font-weight:bold; cursor:pointer;}
+    .close:hover {color:#000;}
+    footer {background-color:#333; color:white; text-align:center; padding:20px; margin-top:40px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎨 Majestic Views Paintings</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="auctions.html">Auctions</a>
+      <a href="paintings.html">Paintings</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="paintings-container">
+    <h2>🎨 Fine Art Paintings Collection</h2>
+    <p style="text-align:center; color:#666; margin-bottom:20px;">Discover our exclusive collection of original paintings and fine art prints</p>
+    
+    <div class="filters">
+      <button class="active" onclick="filterPaintings('all')">All Paintings</button>
+      <button onclick="filterPaintings('abstract')">Abstract</button>
+      <button onclick="filterPaintings('landscape')">Landscape</button>
+      <button onclick="filterPaintings('portrait')">Portrait</button>
+      <button onclick="filterPaintings('modern')">Modern</button>
+    </div>
+
+    <div class="paintings-grid" id="paintings-grid"></div>
+  </div>
+
+  <div id="paintingModal" class="modal" onclick="if(event.target === document.getElementById('paintingModal')) closePaintingModal()">
+    <div class="modal-content">
+      <span class="close" onclick="closePaintingModal()">&times;</span>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Majestic Views. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const paintings = [
+      {
+        id: 201,
+        title: 'Sunset Over Mountains',
+        artist: 'Leonardo Rossi',
+        year: 2023,
+        price: 2500,
+        category: 'landscape',
+        image: '🏔️',
+        description: 'A breathtaking oil painting capturing the golden hour over majestic mountain peaks.'
+      },
+      {
+        id: 202,
+        title: 'Abstract Symphony',
+        artist: 'Maria Chen',
+        year: 2024,
+        price: 1800,
+        category: 'abstract',
+        image: '🎨',
+        description: 'Contemporary abstract piece exploring color and form in harmonious balance.'
+      },
+      {
+        id: 203,
+        title: 'Modern Reflections',
+        artist: 'James Mitchell',
+        year: 2023,
+        price: 3200,
+        category: 'modern',
+        image: '🪞',
+        description: 'Mixed media artwork combining traditional techniques with contemporary themes.'
+      },
+      {
+        id: 204,
+        title: 'Forest Path',
+        artist: 'Elena Rossi',
+        year: 2024,
+        price: 1950,
+        category: 'landscape',
+        image: '🌲',
+        description: 'Serene landscape painting depicting a winding path through ancient forests.'
+      },
+      {
+        id: 205,
+        title: 'Portrait of Grace',
+        artist: 'Antonio Moretti',
+        year: 2023,
+        price: 4500,
+        category: 'portrait',
+        image: '👤',
+        description: 'Stunning portrait capturing the essence and beauty of its subject.'
+      },
+      {
+        id: 206,
+        title: 'Urban Geometry',
+        artist: 'Sofia Petrov',
+        year: 2024,
+        price: 2200,
+        category: 'modern',
+        image: '🏙️',
+        description: 'Contemporary interpretation of urban architecture and city life.'
+      },
+      {
+        id: 207,
+        title: 'Ocean Waves',
+        artist: 'Marco Bellini',
+        year: 2023,
+        price: 2100,
+        category: 'landscape',
+        image: '🌊',
+        description: 'Dynamic seascape capturing the power and beauty of ocean waves.'
+      },
+      {
+        id: 208,
+        title: 'Colorful Dreams',
+        artist: 'Yuki Tanaka',
+        year: 2024,
+        price: 1600,
+        category: 'abstract',
+        image: '💭',
+        description: 'Vibrant abstract composition exploring the realm of imagination.'
+      },
+      {
+        id: 209,
+        title: 'Classical Beauty',
+        artist: 'Isabella Romano',
+        year: 2023,
+        price: 3800,
+        category: 'portrait',
+        image: '🎭',
+        description: 'Elegant portrait in classical style with timeless beauty.'
+      },
+      {
+        id: 210,
+        title: 'Neon Nights',
+        artist: 'David Chen',
+        year: 2024,
+        price: 2400,
+        category: 'modern',
+        image: '🌃',
+        description: 'Modern digital art piece featuring vibrant neon colors and urban aesthetic.'
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    function renderPaintings(filter = 'all') {
+      const grid = document.getElementById('paintings-grid');
+      grid.innerHTML = '';
+      
+      const filtered = filter === 'all' ? paintings : paintings.filter(p => p.category === filter);
+      
+      filtered.forEach(painting => {
+        const div = document.createElement('div');
+        div.className = 'painting-card';
+        div.onclick = () => showPaintingDetails(painting);
+        div.innerHTML = `
+          <div class="painting-image">${painting.image}</div>
+          <div class="painting-info">
+            <h3>${painting.title}</h3>
+            <div class="artist">by ${painting.artist}</div>
+            <div class="year">${painting.year}</div>
+            <div class="painting-price">$${painting.price}</div>
+            <p class="painting-desc">${painting.description}</p>
+            <button class="view-btn" onclick="event.stopPropagation(); showPaintingDetails(paintings[${paintings.indexOf(painting)}])">View Details</button>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    function filterPaintings(category) {
+      currentFilter = category;
+      document.querySelectorAll('.filters button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderPaintings(category);
+    }
+
+    function showPaintingDetails(painting) {
+      const modal = document.getElementById('paintingModal');
+      const modalContent = document.getElementById('modalContent');
+      
+      modalContent.innerHTML = `
+        <h2>${painting.title}</h2>
+        <div style="font-size:120px; text-align:center; margin:20px 0;">${painting.image}</div>
+        <p><strong>Artist:</strong> ${painting.artist}</p>
+        <p><strong>Year:</strong> ${painting.year}</p>
+        <p><strong>Price:</strong> <span style="font-size:24px; color:#007cba; font-weight:bold;">$${painting.price}</span></p>
+        <p><strong>Description:</strong> ${painting.description}</p>
+        <button class="view-btn" style="margin-top:20px;" onclick="alert('Added to cart! Price: $' + ${painting.price})">Add to Cart</button>
+      `;
+      
+      modal.style.display = 'block';
+    }
+
+    function closePaintingModal() {
+      document.getElementById('paintingModal').style.display = 'none';
+    }
+
+    window.addEventListener('load', renderPaintings);
+  </script>
+</body>
+</html>

@@ -3,34 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your E-commerce Store</title>
+    <title>Majestic Views - Premium Quality Products</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:Arial, sans-serif; background-color:#f5f5f5;}
+    header {background-color:#007cba; color:white; padding:20px 40px; margin-bottom:0; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+    header h1 {margin:0; font-size:28px; display:inline-block;}
+    header nav {display:inline-block; float:right; margin-top:5px;}
+    header nav a {color:white; text-decoration:none; margin-left:25px; font-size:16px;}
+    header nav a:hover {text-decoration:underline;}
+    
+    .hero {background:linear-gradient(135deg, #ff6b9d 0%, #ffa500 25%, #00a86b 75%, #2a5298 100%); color:white; padding:60px 40px; text-align:center;}
+    .hero h1 {font-size:48px; margin-bottom:20px;}
+    .hero p {font-size:20px; margin-bottom:30px; opacity:0.9;}
+    .hero-btn {background:white; color:#007cba; padding:15px 40px; border:none; border-radius:4px; cursor:pointer; font-size:18px; font-weight:bold;}
+    .hero-btn:hover {background:#f0f0f0;}
+    
+    .features {display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; padding:40px; background:white; margin-bottom:40px;}
+    .feature {text-align:center; padding:20px;}
+    .feature h3 {font-size:24px; margin-bottom:10px; color:#007cba;}
+    .feature p {color:#666;}
+    
+    .featured-products {padding:40px;}
+    .featured-products h2 {font-size:32px; margin-bottom:30px; text-align:center; color:#333;}
+    .products-grid {display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:20px;}
+    .product-card {background:white; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:transform 0.2s;}
+    .product-card:hover {transform:translateY(-5px); box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+    .product-card-content {padding:15px; text-align:center;}
+    .product-icon {font-size:50px; margin-bottom:10px;}
+    .product-card h3 {font-size:18px; margin:10px 0; color:#333;}
+    .product-price {font-size:22px; font-weight:bold; color:#007cba; margin:10px 0;}
+    .product-btn {background:#007cba; color:white; padding:10px; border:none; border-radius:4px; cursor:pointer; width:100%; font-weight:bold;}
+    .product-btn:hover {background:#005a87;}
+    
+    .testimonials {background:white; padding:40px; margin-bottom:40px;}
+    .testimonials h2 {font-size:32px; margin-bottom:30px; text-align:center; color:#333;}
+    .testimonials-grid {display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+    .testimonial {padding:20px; border-left:4px solid #007cba; background:#f9f9f9; border-radius:4px;}
+    .testimonial-text {margin-bottom:10px; color:#666; font-style:italic;}
+    .testimonial-author {font-weight:bold; color:#333;}
+    
+    footer {background-color:#333; color:white; text-align:center; padding:20px; margin-top:0;}
+    
+    @media (max-width: 768px) {
+        .features {grid-template-columns:1fr;}
+        .testimonials-grid {grid-template-columns:1fr;}
+        .hero h1 {font-size:32px;}
+        header nav {float:none; display:block; margin-top:15px;}
+    }
+    </style>
 </head>
 <body>
     <header>
+        <h1>🛍️ Majestic Views</h1>
         <nav>
-            <ul>
-          <a href="home.html">Home</a>
-          <a href="shop.html">Shop</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-            </ul>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="auctions.html">Auctions</a>
+            <a href="paintings.html">Paintings</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
         </nav>
     </header>
-    <main>
-        <section id="hero">
-            <h1>Welcome to Our Store</h1>
-            <p>Discover exclusive products for everyone.</p>
-        </section>
-        <section id="products">
-            <!-- Product listings will go here -->
-        </section>
-    </main>
+
+    <div class="hero">
+        <h1>Welcome to Our Store</h1>
+        <p>Discover premium quality products at unbeatable prices</p>
+        <button class="hero-btn" onclick="window.location.href='shop.html'">Shop Now</button>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <h3>🚚 Fast Shipping</h3>
+            <p>Free shipping on orders over $50. Quick delivery to your doorstep.</p>
+        </div>
+        <div class="feature">
+            <h3>💰 Best Prices</h3>
+            <p>Compare our prices and find the best deals on quality products.</p>
+        </div>
+        <div class="feature">
+            <h3>✅ Quality Guaranteed</h3>
+            <p>100% satisfaction guarantee on all products. Easy returns.</p>
+        </div>
+    </div>
+
+    <div class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="products-grid" id="featured-grid"></div>
+    </div>
+
+    <div class="testimonials">
+        <h2>Customer Reviews</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <div class="testimonial-text">"Amazing quality and fast shipping! Will definitely order again."</div>
+                <div class="testimonial-author">- Sarah M.</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">"Great prices and excellent customer service. Highly recommended!"</div>
+                <div class="testimonial-author">- John D.</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-text">"Best online shopping experience. Products arrived in perfect condition."</div>
+                <div class="testimonial-author">- Emma L.</div>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Your E-commerce Store. All rights reserved.</p>
+        <p>&copy; 2026 Majestic Views. All rights reserved. | Fast Shipping | Great Prices | Quality Guaranteed</p>
     </footer>
 
-    <script> function goHome(){ window.location.href = 'index.html'; } </script>
-    onclick="goHome()"
+    <script>
+        // Display featured products on home page
+        window.addEventListener('load', function() {
+            const grid = document.getElementById('featured-grid');
+            if (grid) {
+                const featured = products.slice(0, 6);
+                featured.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="product-card-content">
+                            <div class="product-icon">${product.image}</div>
+                            <h3>${product.name}</h3>
+                            <p class="product-price">$${product.price.toFixed(2)}</p>
+                            <button class="product-btn" onclick="goToShop()">View in Shop</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        });
+
+        function goToShop() {
+            window.location.href = 'shop.html';
+        }
+    </script>
+    <script src="scripts.js"></script>
 </body>
+</html>
 </html>

@@ -1,28 +1,256 @@
-body {
-    font-family: Arial, sans-serif;
+/* Global Styles */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #00a86b 50%, #ff6b9d 75%, #ffa500 100%);
+    background-attachment: fixed;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Typography */
+h1, h2, h3 {
+    color: #333;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 20px 0 15px 0;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Header Styling */
 header {
-    background-color: #333;
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 50%, #00a86b 100%);
     color: white;
-    padding: 10px 0;
+    padding: 20px 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: white;
+}
+
+header nav {
+    display: flex;
+    gap: 25px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: text-decoration 0.2s;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+footer {
+    background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 50%, #1a3a3a 100%);
+    color: white;
     text-align: center;
+    padding: 20px;
+    margin-top: 40px;
 }
 
-nav {
-    background-color: #444;
-    padding: 10px;
+/* Main Content */
+main {
+    padding: 0 40px;
+    margin-bottom: 40px;
 }
 
-nav a {
-    color: white;
-    margin: 0 15px;
+/* Lists */
+ul, ol {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+li {
+    margin: 8px 0;
+}
+
+/* Links */
+a {
+    color: #007cba;
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Forms */
+input, textarea {
+    font-family: Arial, sans-serif;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #007cba;
+    box-shadow: 0 0 5px rgba(0, 123, 186, 0.3);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Cards */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    header nav {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 0 20px;
+    }
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.p-20 {
+    padding: 20px;
+}
+
+.rounded {
+    border-radius: 4px;
+}
+
+.shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, #007cba 0%, #00a86b 100%);
+    color: white;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #00d4aa 100%);
+    color: white;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Colors */
+.primary-color {
+    color: #007cba;
+}
+
+.success-color {
+    color: #28a745;
+}
+
+.danger-color {
+    color: #dc3545;
+}
 nav a:hover {
     color: #ddd;
 }
