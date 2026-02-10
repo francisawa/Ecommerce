@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - threepeakviews.com</title>
+    <link rel="stylesheet" href="styles.css">
+    
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
+</head>
+<body class="page-account">
+    <header>
+        <h1>🛍️ threepeakviews.com</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <div class="nav-dropdown">
+                <a href="shop.html">Shop ▼</a>
+                <div class="dropdown-content">
+                    <a href="shop.html">Browse Products</a>
+                    <a href="auctions.html">Auctions</a>
+                    <a href="paintings.html">Paintings</a>
+                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="about.html">About ▼</a>
+                <div class="dropdown-content">
+                    <a href="about.html">Our Story</a>
+                    <a href="about.html#mission">Our Mission</a>
+                    <a href="about.html#team">Our Team</a>
+                </div>
+            </div>
+            <a href="account.html">Account</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="auth-layout">
+            <div class="auth-info">
+                <h2>Join threepeakviews.com</h2>
+                <p>Create your account to enjoy exclusive benefits and faster checkout.</p>
+                <ul class="features">
+                    <li>⚡ Faster checkout on every purchase</li>
+                    <li>📦 Track your orders in real-time</li>
+                    <li>💾 Save your favorite items</li>
+                    <li>🎁 Exclusive member discounts</li>
+                    <li>📧 Personalized recommendations</li>
+                    <li>🔐 Secure payment storage</li>
+                </ul>
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="signup">Create Account</button>
+                    <button class="auth-tab" data-tab="login">Sign In</button>
+                </div>
+
+                <!-- Signup Tab -->
+                <div class="auth-content active" id="signup">
+                    <div class="alert" id="signupAlert"></div>
+                    <form id="signupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" required placeholder="John">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" required placeholder="Doe">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupEmail">Email Address *</label>
+                            <input type="email" id="signupEmail" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="signupPassword">Password *</label>
+                                <input type="password" id="signupPassword" required placeholder="Minimum 8 characters">
+                                <div class="password-strength" id="passwordStrength"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password *</label>
+                                <input type="password" id="confirmPassword" required placeholder="Confirm password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="(123) 456-7890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country">
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="termsCheckbox" required>
+                            <label for="termsCheckbox">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+                        </div>
+
+                        <div class="checkbox-group mt-12">
+                            <input type="checkbox" id="newsCheckbox">
+                            <label for="newsCheckbox">Send me exclusive offers and updates</label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Create Account</button>
+
+                        <p class="auth-link">Already have an account? <a href="#login" data-tab-target="login">Sign in here</a></p>
+                    </form>
+
+                    <div class="divider"><span>OR</span></div>
+
+                    <button class="guest-btn" type="button" data-action="guest">Continue as Guest</button>
+                </div>
+
+                <!-- Login Tab -->
+                <div class="auth-content" id="login">
+                    <div class="alert" id="loginAlert"></div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address *</label>
+                            <input type="email" id="loginEmail" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Password *</label>
+                            <input type="password" id="loginPassword" required placeholder="Enter your password">
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Sign In</button>
+
+                        <p class="auth-link"><a href="password-reset.html">Forgot your password?</a></p>
+                    </form>
+
+                    <div class="divider"><span>OR</span></div>
+
+                    <button class="guest-btn" type="button" data-action="guest">Continue as Guest</button>
+
+                    <p class="auth-link">Don't have an account? <a href="#signup" data-tab-target="signup">Create one</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 threepeakviews.com. All rights reserved. | <a href="privacy.html" class="footer-link">Privacy Policy</a> | <a href="terms.html" class="footer-link">Terms of Service</a></p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+

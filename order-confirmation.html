@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - threepeakviews.com</title>
+    <link rel="stylesheet" href="styles.css">
+    
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
+</head>
+<body class="page-order-confirmation">
+    <header>
+        <h1>🛍️ threepeakviews.com</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <div class="nav-dropdown">
+                <a href="shop.html">Shop ▼</a>
+                <div class="dropdown-content">
+                    <a href="shop.html">Browse Products</a>
+                    <a href="auctions.html">Auctions</a>
+                    <a href="paintings.html">Paintings</a>
+                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="about.html">About ▼</a>
+                <div class="dropdown-content">
+                    <a href="about.html">Our Story</a>
+                    <a href="about.html#mission">Our Mission</a>
+                    <a href="about.html#team">Our Team</a>
+                </div>
+            </div>
+            <a href="account.html">Account</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="success-icon">✅</div>
+            <h1>Order Confirmed!</h1>
+            <p>Thank you for your purchase. Your order has been successfully placed.</p>
+
+            <div class="order-id" id="orderId">ORDER-LOADING...</div>
+
+            <div class="order-details" id="orderDetails">
+                <div class="detail-row">
+                    <span class="detail-label">Order Date:</span>
+                    <span class="detail-value" id="orderDate">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Amount:</span>
+                    <span class="detail-value" id="orderTotal">$0.00</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Shipping Address:</span>
+                    <span class="detail-value" id="shippingAddress">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Email Confirmation:</span>
+                    <span class="detail-value" id="emailConfirm">-</span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h4>📋 What's Next?</h4>
+                <ol>
+                    <li>You will receive a confirmation email shortly with all order details</li>
+                    <li>Your payment has been processed securely</li>
+                    <li>You will receive tracking information when your order ships</li>
+                    <li>Typical delivery time is 3-5 business days</li>
+                    <li>For questions, contact us at support@threepeakviews.com</li>
+                </ol>
+            </div>
+
+            <div class="action-buttons">
+                <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                <button class="btn btn-secondary" id="downloadReceiptBtn">Download Receipt</button>
+            </div>
+
+            <p class="text-muted mt-20 text-sm">
+                📧 Check your email for a detailed receipt and tracking information
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 threepeakviews.com. All rights reserved. | Secured by Stripe & PayPal</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

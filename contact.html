@@ -1,44 +1,35 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-  <title>Contact Us - Majestic Views</title>
-  <style>
-body {font-family:Arial, sans-serif; margin:0; padding:0; background-color:#f5f5f5;}
-header {background-color:#007cba; color:white; padding:20px 40px; margin-bottom:30px; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-header h1 {margin:0; font-size:28px; display:inline-block;}
-header nav {display:inline-block; float:right; margin-top:5px;}
-header nav a {color:white; text-decoration:none; margin-left:25px; font-size:16px;}
-header nav a:hover {text-decoration:underline;}
-.contact-container {display:grid; grid-template-columns:1fr 1fr; gap:40px; padding:0 40px 40px 40px;}
-.contact-section h2 {color:#333; font-size:24px; margin-bottom:20px;}
-.contact-info {background:white; padding:30px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.contact-info div {margin-bottom:25px;}
-.contact-info strong {color:#007cba; font-size:16px;}
-.contact-info p {color:#666; margin:5px 0;}
-.contact-form {background:white; padding:30px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.form-group {margin-bottom:20px;}
-.form-group label {display:block; font-weight:bold; margin-bottom:8px; color:#333;}
-.form-group input, .form-group textarea {width:100%; padding:10px; border:1px solid #ddd; border-radius:4px; font-family:Arial; font-size:14px; box-sizing:border-box;}
-.form-group input:focus, .form-group textarea:focus {outline:none; border-color:#007cba; box-shadow:0 0 5px rgba(0,123,186,0.3);}
-.form-group textarea {resize:vertical; min-height:120px;}
-.submit-btn {background:#28a745; color:white; padding:12px 30px; border:none; border-radius:4px; cursor:pointer; font-size:16px; font-weight:bold; width:100%;}
-.submit-btn:hover {background:#218838;}
-footer {background-color:#333; color:white; text-align:center; padding:20px;}
-@media (max-width: 768px) {
-.contact-container {grid-template-columns:1fr;}
-}
-  </style>
+    <title>Contact Us - threepeakviews.com</title>
+    <link rel="stylesheet" href="styles.css">
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
 </head>
-<body>
+<body class="page-contact">
 <header>
 <h1>📞 Contact Us</h1>
 <nav>
 <a href="index.html">Home</a>
-<a href="shop.html">Shop</a>
+<div class="nav-dropdown">
+<a href="shop.html">Shop ▼</a>
+<div class="dropdown-content">
+<a href="shop.html">Browse Products</a>
 <a href="auctions.html">Auctions</a>
 <a href="paintings.html">Paintings</a>
-<a href="about.html">About</a>
+<a href="Eagle_Shop.html">🦅 Eagle Shop</a>
+</div>
+</div>
 <a href="contact.html">Contact</a>
+<div class="nav-dropdown">
+<a href="about.html">About ▼</a>
+<div class="dropdown-content">
+<a href="about.html">Our Story</a>
+<a href="about.html#mission">Our Mission</a>
+<a href="about.html#team">Our Team</a>
+</div>
+</div>
+<a href="account.html">Account</a>
+<a href="admin.html">Admin</a>
 </nav>
 </header>
 
@@ -73,7 +64,7 @@ footer {background-color:#333; color:white; text-align:center; padding:20px;}
 
 <div class="contact-section contact-form">
 <h2>Send us a Message</h2>
-<form onsubmit="handleContactSubmit(event)">
+<form id="contactForm">
 <div class="form-group">
 <label>Name *</label>
 <input type="text" name="name" required>
@@ -96,16 +87,13 @@ footer {background-color:#333; color:white; text-align:center; padding:20px;}
 </div>
 
 <footer>
-<p>&copy; 2026 Majestic Views. All rights reserved.</p>
+<p>&copy; 2026 threepeakviews.com. All rights reserved.</p>
 </footer>
 
-<script>
-function handleContactSubmit(event) {
-event.preventDefault();
-alert('Thank you for your message! We will get back to you soon.');
-event.target.reset();
-}
-</script>
 <script src="scripts.js"></script>
 </body>
 </html>
+
+
+
+

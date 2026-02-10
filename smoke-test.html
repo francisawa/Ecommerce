@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoke Test Checklist - threepeakviews.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
+</head>
+<body class="page-smoke-test">
+    <header>
+        <h1>Smoke Test Checklist</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="auctions.html">Auctions</a>
+            <a href="paintings.html">Paintings</a>
+            <a href="contact.html">Contact</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Quick Checks</h2>
+            <p class="text-muted">Use this list to confirm DOM handlers on each page. Your progress is saved locally.</p>
+            <ul class="checklist" id="smokeChecklist">
+                <li><label><input type="checkbox" data-key="heroShopBtn"> Index: Hero button navigates to shop</label></li>
+                <li><label><input type="checkbox" data-key="shopSearch"> Shop: Search button and Enter key filter products</label></li>
+                <li><label><input type="checkbox" data-key="shopCheckout"> Shop: Checkout button navigates to secure checkout</label></li>
+                <li><label><input type="checkbox" data-key="auctionsBid"> Auctions: Place Bid updates current bid</label></li>
+                <li><label><input type="checkbox" data-key="paintingsFilters"> Paintings: Filters switch categories</label></li>
+                <li><label><input type="checkbox" data-key="paintingsModal"> Paintings: Card opens modal and close works</label></li>
+                <li><label><input type="checkbox" data-key="contactForm"> Contact: Submit shows thank-you alert</label></li>
+                <li><label><input type="checkbox" data-key="accountTabs"> Account: Tab links switch signup/login</label></li>
+                <li><label><input type="checkbox" data-key="adminLogin"> Admin: Login and logout flow works</label></li>
+                <li><label><input type="checkbox" data-key="adminActions"> Admin: Edit/delete buttons work</label></li>
+                <li><label><input type="checkbox" data-key="checkoutBack"> Checkout: Back button returns to shop</label></li>
+                <li><label><input type="checkbox" data-key="checkoutPurchase"> Checkout: Complete Purchase triggers process order</label></li>
+                <li><label><input type="checkbox" data-key="orderReceipt"> Order confirmation: Download receipt works</label></li>
+                <li><label><input type="checkbox" data-key="secureLogout"> Secure checkout: Logout link works</label></li>
+            </ul>
+            <div class="mt-16">
+                <button class="btn btn-secondary" id="resetChecklistBtn" type="button">Reset checklist</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 threepeakviews.com. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

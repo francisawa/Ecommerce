@@ -1,87 +1,84 @@
-<html>
+﻿<html>
 <head>
-<title>Store</title>
+<title>Shop - threepeakviews.com</title>
 <meta charset="utf-8">
-<style>
-body {font-family:Arial, sans-serif; margin:0; padding:0; background-color:#f5f5f5;}
-header {background-color:#007cba; color:white; padding:20px 40px; margin-bottom:30px; box-shadow:0 2px 4px rgba(0,0,0,0.1); display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap;}
-header h1 {margin:0; font-size:28px; display:inline-block; flex:1;}
-header nav {display:inline-block; margin-top:5px;}
-header nav a {color:white; text-decoration:none; margin-left:20px; font-size:14px;}
-header nav a:hover {text-decoration:underline;}
-header .header-info {display:flex; gap:40px; align-items:center; width:100%; margin-top:15px;}
-#header-cart {background:rgba(0,0,0,0.2); padding:10px 15px; border-radius:4px; max-width:300px;}
-#header-cart h3 {margin:5px 0 8px 0; font-size:14px;}
-#cart-items {list-style:none; padding:0; margin:5px 0; max-height:200px; overflow-y:auto;}
-#cart-items li {padding:5px; background:white; margin:3px 0; border-radius:3px; display:flex; justify-content:space-between; font-size:12px; color:#333;}
-#cart-items li button {background:#d32f2f; color:white; border:none; padding:2px 6px; cursor:pointer; border-radius:2px; font-size:11px;}
-#cart-items li button:hover {background:#b71c1c;}
-#cart-summary {background:white; color:#333; padding:8px; border-radius:3px; margin-top:8px; font-weight:bold; font-size:13px;}
-#checkout-btn {background:#28a745; color:white; padding:10px 20px; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:10px; width:100%;}
-#checkout-btn:hover {background:#218838;}
-.shop-header {padding:0 40px; margin-bottom:30px;}
-.filters {display:flex; gap:10px; margin:20px 0; flex-wrap:wrap;}
-.filters button {padding:8px 15px; background:#007cba; color:white; border:none; border-radius:4px; cursor:pointer; font-size:14px;}
-.filters button:hover {background:#005a87;}
-.filters button.active {background:#28a745;}
-.search-box {padding:10px; border:2px solid #007cba; border-radius:4px; width:250px; font-size:14px;}
-.search-box:focus {outline:none; border-color:#005a87;}
-#products-container {display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:20px; padding:0 40px 40px 40px;}
-.product {background:white; padding:15px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); transition:transform 0.2s, box-shadow 0.2s;}
-.product:hover {transform:translateY(-5px); box-shadow:0 4px 12px rgba(0,0,0,0.15);}
-.product-icon {font-size:50px; text-align:center; margin-bottom:10px;}
-.product h3 {margin:10px 0; font-size:18px; color:#333;}
-.product-price {font-size:22px; font-weight:bold; color:#007cba; margin:10px 0;}
-.product-description {font-size:14px; color:#666; margin:10px 0;}
-.qty-input {width:60px; padding:5px; border:1px solid #ddd; border-radius:4px; margin:10px 0;}
-.add-btn {background:#007cba; color:white; border:none; padding:10px; border-radius:4px; cursor:pointer; width:100%; font-weight:bold;}
-.add-btn:hover {background:#005a87;}
-footer {background-color:#333; color:white; text-align:center; padding:20px; margin-top:40px;}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
 </head>
-<body>
+<body class="page-shop">
 <header>
-<h1>🛍️ Majestic Views Shop</h1>
-<nav>
-<a href="index.html">Home</a>
-<a href="shop.html">Shop</a>
-<a href="auctions.html">Auctions</a>
-<a href="paintings.html">Paintings</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-</nav>
-<div class="header-info">
-<div id="header-cart">
-<h3>🛒 Cart</h3>
-<ul id="cart-items"></ul>
-<div id="cart-summary">Total: $<span id="cart-summary-total">0</span></div>
-<button id="checkout-btn" onclick="checkout()">Checkout</button>
-</div>
-<div>
-<span id="cart-count">0</span> items - $<span id="cart-total">0</span>
-</div>
-</div>
+    <div class="header-top">
+        <h1>🛍️ threepeakviews.com Shop</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <div class="nav-dropdown">
+                <a href="shop.html">Shop ▼</a>
+                <div class="dropdown-content">
+                    <a href="shop.html">Browse Products</a>
+                    <a href="auctions.html">Auctions</a>
+                    <a href="paintings.html">Paintings</a>
+                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
+                </div>
+            </div>
+            <a href="contact.html">Contact</a>
+            <div class="nav-dropdown">
+                <a href="about.html">About ▼</a>
+                <div class="dropdown-content">
+                    <a href="about.html">Our Story</a>
+                    <a href="about.html#mission">Our Mission</a>
+                    <a href="about.html#team">Our Team</a>
+                </div>
+            </div>
+            <a href="account.html">Account</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </div>
+    
+    <div class="header-controls">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search products..." />
+        <button class="search-btn" id="searchBtn">🔍 Search</button>
+        <div id="user-status" class="user-menu"></div>
+        <div id="header-cart">
+            <h3>Cart</h3>
+            <ul id="cart-items"></ul>
+            <div id="cart-summary">Total: $<span id="cart-summary-total">0.00</span></div>
+            <button id="checkout-btn">Checkout</button>
+        </div>
+    </div>
 </header>
 
-<div class="shop-header">
-<h2>Featured Products</h2>
-<div class="filters">
-<button class="active" onclick="filterByCategory('all')">All Products</button>
-<button onclick="filterByCategory('footwear')">👟 Footwear</button>
-<button onclick="filterByCategory('clothing')">👕 Clothing</button>
-<button onclick="filterByCategory('outerwear')">🧥 Outerwear</button>
-<button onclick="filterByCategory('accessories')">⌚ Accessories</button>
-<button onclick="filterByCategory('jewelry')">💎 Jewelry</button>
-</div>
-<input type="text" class="search-box" placeholder="Search products..." onkeyup="searchProducts(this.value)">
+<div class="shop-controls">
+    <div class="controls-top">
+        <h2>Shop All Products</h2>
+        <div class="cart-summary">
+            <span>Cart: <span id="cart-count">0</span> items</span>
+            <span>Total: $<span id="cart-total">0.00</span></span>
+        </div>
+    </div>
+
+    <h3 class="mb-15 text-dark">Categories</h3>
+    <div class="categories">
+        <button class="category-btn active" data-category="all">All Products</button>
+        <button class="category-btn" data-category="clothing">👕 Clothing</button>
+        <button class="category-btn" data-category="footwear">👟 Footwear</button>
+        <button class="category-btn" data-category="outerwear">🧥 Outerwear</button>
+        <button class="category-btn" data-category="accessories">⌚ Accessories</button>
+        <button class="category-btn" data-category="jewelry">💎 Jewelry</button>
+    </div>
 </div>
 
 <div id="products-container"></div>
+<div id="no-results" class="no-results is-hidden">No products found</div>
 
 <footer>
-<p>&copy; 2026 Majestic Views. All rights reserved. | Fast Shipping | Great Prices | Quality Guaranteed</p>
+    <p>&copy; 2026 threepeakviews.com. All rights reserved. | <a href="account.html" class="footer-link">My Account</a> | <a href="privacy.html" class="footer-link">Privacy</a> | <a href="support.html" class="footer-link">Support</a></p>
 </footer>
 
 <script src="scripts.js"></script>
 </body>
 </html>
+
+
+
+

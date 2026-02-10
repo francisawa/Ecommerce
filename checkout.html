@@ -1,47 +1,41 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <title>Checkout</title>
-  <style>
-    body {font-family:Arial, sans-serif; margin:0; padding:0; background-color:#f5f5f5;}
-    header {background-color:#007cba; color:white; padding:20px 40px; margin-bottom:30px; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-    header h1 {margin:0; font-size:28px; display:inline-block;}
-    header nav {display:inline-block; float:right; margin-top:5px;}
-    header nav a {color:white; text-decoration:none; margin-left:25px; font-size:16px;}
-    header nav a:hover {text-decoration:underline;}
-    .checkout-container {display:flex; padding:0 40px; gap:40px; margin-bottom:40px;}
-    .order-section {flex:1;}
-    .form-section {flex:1; background:white; padding:20px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-    .order-item {display:flex; justify-content:space-between; padding:10px; background:white; margin:10px 0; border-radius:4px; border:1px solid #ddd;}
-    .order-total {background:white; padding:15px; border-radius:4px; border:2px solid #007cba; font-size:18px; font-weight:bold; margin:20px 0;}
-    .form-group {margin-bottom:15px;}
-    .form-group label {display:block; font-weight:bold; margin-bottom:5px; color:#333;}
-    .form-group input {width:100%; padding:10px; border:1px solid #ddd; border-radius:4px; font-size:14px; box-sizing:border-box;}
-    .form-group input:focus {outline:none; border-color:#007cba; box-shadow:0 0 5px rgba(0,123,186,0.3);}
-    .submit-btn {background:#28a745; color:white; padding:15px; border:none; border-radius:4px; cursor:pointer; font-size:16px; font-weight:bold; width:100%;}
-    .submit-btn:hover {background:#218838;}
-    .back-btn {background:#6c757d; color:white; padding:10px 20px; border:none; border-radius:4px; cursor:pointer; margin-bottom:20px;}
-    .back-btn:hover {background:#5a6268;}
-    footer {background-color:#333; color:white; text-align:center; padding:20px; margin-top:40px;}
-    h2 {color:#333;}
-  </style>
+  <link rel="stylesheet" href="styles.css">
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
 </head>
-<body>
+<body class="page-checkout">
   <header>
-    <h1>🛒 Majestic Views - Checkout</h1>
+    <h1>threepeakviews.com - Checkout</h1>
     <nav>
       <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
+      <div class="nav-dropdown">
+      <a href="shop.html">Shop ▼</a>
+      <div class="dropdown-content">
+      <a href="shop.html">Browse Products</a>
       <a href="auctions.html">Auctions</a>
       <a href="paintings.html">Paintings</a>
-      <a href="about.html">About</a>
+      <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
+      </div>
+      </div>
       <a href="contact.html">Contact</a>
+      <div class="nav-dropdown">
+      <a href="about.html">About ▼</a>
+      <div class="dropdown-content">
+      <a href="about.html">Our Story</a>
+      <a href="about.html#mission">Our Mission</a>
+      <a href="about.html#team">Our Team</a>
+      </div>
+      </div>
+      <a href="account.html">Account</a>
+      <a href="admin.html">Admin</a>
     </nav>
   </header>
 
   <div class="checkout-container">
     <div class="order-section">
-      <button class="back-btn" onclick="window.location.href='shop.html'">← Back to Shopping</button>
+      <button class="back-btn" id="checkoutBackBtn">← Back to Shopping</button>
       <h2>Order Summary</h2>
       <div id="order-summary"></div>
     </div>
@@ -75,14 +69,18 @@
         <input type="text" placeholder="123" maxlength="3">
       </div>
 
-      <button class="submit-btn" onclick="processOrder()">Complete Purchase</button>
+      <button type="button" class="submit-btn" id="completePurchaseBtn">Complete Purchase</button>
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2026 Majestic Views. All rights reserved.</p>
+    <p>&copy; 2026 threepeakviews.com. All rights reserved.</p>
   </footer>
 
   <script src="scripts.js"></script>
 </body>
 </html>
+
+
+
+
