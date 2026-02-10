@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Portal - threepeakviews.com</title>
+    <link rel="stylesheet" href="styles.css">
+    
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
+</head>
+<body class="page-signup">
+    <header>
+        <h1>threepeakviews.com</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <div class="nav-dropdown">
+                <a href="shop.html">Shop</a>
+                <div class="dropdown-content">
+                    <a href="shop.html">Browse Products</a>
+                    <a href="auctions.html">Auctions</a>
+                    <a href="paintings.html">Paintings</a>
+                    <a href="Eagle_Shop.html">Eagle Shop</a>
+                </div>
+            </div>
+            <div class="nav-dropdown">
+                <a href="about.html">About</a>
+                <div class="dropdown-content">
+                    <a href="about.html">Our Story</a>
+                    <a href="about.html#mission">Our Mission</a>
+                    <a href="about.html#team">Our Team</a>
+                </div>
+            </div>
+            <a href="account.html">Account</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="auth-layout">
+            <div class="auth-info">
+                <h2>Signup Portal</h2>
+                <p>Create a client account for shopping benefits or request admin access for store management.</p>
+                <ul class="features">
+                    <li>Fast checkout and order tracking</li>
+                    <li>Saved preferences and wishlists</li>
+                    <li>Admin tools for products and inventory</li>
+                    <li>Secure access with account verification</li>
+                </ul>
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="client">Client Signup</button>
+                    <button class="auth-tab" data-tab="admin">Admin Signup</button>
+                </div>
+
+                <div class="auth-content active" id="client">
+                    <div class="alert" id="clientAlert"></div>
+                    <form id="clientSignupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientFirstName">First Name *</label>
+                                <input type="text" id="clientFirstName" required placeholder="Jane">
+                            </div>
+                            <div class="form-group">
+                                <label for="clientLastName">Last Name *</label>
+                                <input type="text" id="clientLastName" required placeholder="Doe">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clientEmail">Email Address *</label>
+                            <input type="email" id="clientEmail" required placeholder="jane@example.com">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="clientPassword">Password *</label>
+                                <input type="password" id="clientPassword" required placeholder="Minimum 8 characters">
+                                <div class="password-strength" id="clientPasswordStrength"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="clientConfirmPassword">Confirm Password *</label>
+                                <input type="password" id="clientConfirmPassword" required placeholder="Confirm password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clientPhone">Phone Number</label>
+                            <input type="tel" id="clientPhone" placeholder="(123) 456-7890">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="clientCountry">Country</label>
+                            <select id="clientCountry">
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="clientTerms" required>
+                            <label for="clientTerms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Create Client Account</button>
+
+                        <p class="auth-link">Already have an account? <a href="account.html">Sign in here</a></p>
+                    </form>
+                </div>
+
+                <div class="auth-content" id="admin">
+                    <div class="alert" id="adminAlert"></div>
+                    <form id="adminSignupForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adminFullName">Admin Name *</label>
+                                <input type="text" id="adminFullName" required placeholder="Store Admin">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminEmail">Admin Email *</label>
+                                <input type="email" id="adminEmail" required placeholder="admin@example.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adminPassword">Password *</label>
+                                <input type="password" id="adminPassword" required placeholder="Minimum 8 characters">
+                                <div class="password-strength" id="adminPasswordStrength"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="adminConfirmPassword">Confirm Password *</label>
+                                <input type="password" id="adminConfirmPassword" required placeholder="Confirm password">
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="adminTerms" required>
+                            <label for="adminTerms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Create Admin Account</button>
+
+                        <p class="auth-link">Already an admin? <a href="admin.html">Sign in here</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>(c) 2026 threepeakviews.com. All rights reserved. | <a href="privacy.html" class="footer-link">Privacy Policy</a> | <a href="terms.html" class="footer-link">Terms of Service</a></p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+

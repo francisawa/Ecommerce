@@ -1,51 +1,112 @@
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Home - Majestic Views</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-body {font-family:Arial; margin:0; padding:0; background-color:#f5f5f5;}
-header {background-color:#007cba; color:white; padding:20px 40px; margin-bottom:30px; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-header h1 {margin:0; font-size:28px; display:inline-block;}
-header nav {display:inline-block; float:right; margin-top:5px;}
-header nav a {color:white; text-decoration:none; margin-left:25px; font-size:16px;}
-header nav a:hover {text-decoration:underline;}
-main {padding:0 40px; margin-bottom:40px;}
-main h1 {color:#333; margin-top:20px;}
-main p {color:#666; line-height:1.6; margin:15px 0;}
-.cta-button {display:inline-block; background:#007cba; color:white; padding:12px 30px; text-decoration:none; border-radius:4px; font-weight:bold; margin-top:20px;}
-.cta-button:hover {background:#005a87;}
-footer {background-color:#333; color:white; text-align:center; padding:20px;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - threepeakviews.com</title>
+    <link rel="stylesheet" href="styles.css">
+    
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
 </head>
-<body>
-<header>
-<h1>🏠 Home</h1>
-<nav>
-<a href="index.html">Home</a>
-<a href="shop.html">Shop</a>
-<a href="auctions.html">Auctions</a>
-<a href="paintings.html">Paintings</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-</nav>
-</header>
-<main>
-<h1>Welcome to Majestic Views</h1>
-<p>Hey, we're an online store selling cool stuff—shoes, shirts, jackets, accessories, and more. We pride ourselves on fast shipping, great prices, and quality guaranteed.</p>
-<p>Each product in our catalog is carefully selected to ensure you get the best value for your money. Whether you're looking for everyday wear or special occasion outfits, we've got you covered.</p>
-<p><strong>Why shop with us?</strong></p>
-<ul style="color:#666; line-height:1.8;">
-<li>✓ Fast and free shipping on orders over $50</li>
-<li>✓ 100% satisfaction guarantee</li>
-<li>✓ Easy returns within 30 days</li>
-<li>✓ Professional customer support</li>
-<li>✓ Secure checkout</li>
-</ul>
-<a href="shop.html" class="cta-button">🛍️ Browse our full collection</a>
-</main>
-<footer>
-<p>&copy; 2026 Majestic Views. All rights reserved.</p>
-</footer>
-<script src="scripts.js"></script>
+<body class="page-home">
+
+    <header>
+        <h1>threepeakviews.com</h1>
+
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+
+            <div class="nav-dropdown">
+                <a href="shop.html" aria-haspopup="true">Shop ▼</a>
+                <div class="dropdown-content">
+                    <a href="shop.html">Browse Products</a>
+                    <a href="auctions.html">Auctions</a>
+                    <a href="paintings.html">Paintings</a>
+                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
+                </div>
+            </div>
+
+            <a href="contact.html">Contact</a>
+
+            <div class="nav-dropdown">
+                <a href="about.html" aria-haspopup="true">About ▼</a>
+                <div class="dropdown-content">
+                    <a href="about.html">Our Story</a>
+                    <a href="about.html#mission">Our Mission</a>
+                    <a href="about.html#team">Our Team</a>
+                </div>
+            </div>
+
+            <a href="account.html">Account</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to threepeakviews.com</h1>
+            <p>Discover premium apparel, accessories, and unique items with fast shipping, unbeatable prices, and quality you can trust.</p>
+            <a href="shop.html" class="cta-button bg-primary">🛍️ Browse Full Collection</a>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>Fast & Free Shipping</h3>
+                <p>On orders over $50 — delivered straight to your door.</p>
+            </div>
+            <div class="feature-card">
+                <h3>100% Satisfaction Guarantee</h3>
+                <p>Love it or return it — hassle-free within 30 days.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure Checkout</h3>
+                <p>Protected payments with industry-standard encryption.</p>
+            </div>
+            <div class="feature-card">
+                <h3>24/7 Support</h3>
+                <p>Real people ready to help whenever you need us.</p>
+            </div>
+        </section>
+
+        <section class="eagle-section card">
+            <h2>🦅 Eagle Shop — Dropshipping Platform</h2>
+            <p>Launch your own online store without holding inventory. Eagle Shop is a powerful AliExpress dropshipping solution with automation and extensibility.</p>
+
+            <ul>
+                <li>Import millions of products from AliExpress</li>
+                <li>Automated order fulfillment</li>
+                <li>Real-time profit analytics</li>
+                <li>Multi-payment gateways (Stripe, PayPal soon)</li>
+                <li>Intuitive admin dashboard</li>
+                <li>Fully responsive + plugin system</li>
+            </ul>
+
+            <a href="Eagle_Shop.html" class="cta-button cta-eagle">
+                🦅 Explore Eagle Shop
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 threepeakviews.com. All rights reserved.</p>
+        <p>
+            <a href="privacy.html">Privacy Policy</a> •
+            <a href="terms.html">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
+
+
+
+
+
+
