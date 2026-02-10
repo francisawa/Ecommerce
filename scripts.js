@@ -174,24 +174,6 @@ function addToCart(productId) {
     }
 }
 
-// Filter Products
-function filterByCategory(category) {
-    if (category === 'all') {
-        renderProducts(products);
-    } else {
-        renderProducts(products.filter(p => p.category === category));
-    }
-}
-
-// Search Products
-function searchProducts(query) {
-    const filtered = products.filter(p => 
-        p.name.toLowerCase().includes(query.toLowerCase()) ||
-        p.description.toLowerCase().includes(query.toLowerCase())
-    );
-    renderProducts(filtered);
-}
-
 // Checkout
 function checkout() {
     if (cart.items.length === 0) {
@@ -847,7 +829,7 @@ function initAdminPage() {
                 }));
                 return;
             } catch (e) {
-                console.error('Invalid products data in localStorage');
+                console.error('Invalid products data in localStorage', e);
             }
         }
 
@@ -1677,7 +1659,7 @@ function initCheckoutSecurePage() {
         showLoading(true);
 
         try {
-            const { fullName, email } = getFormData();
+            const { email } = getFormData();
             const total = parseFloat(localStorage.getItem('checkout-total') || '0');
             const items = JSON.parse(localStorage.getItem('checkout-items') || '[]');
 
@@ -1798,6 +1780,7 @@ function initSmokeTestPage() {
     try {
         state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     } catch (e) {
+        console.warn('Unable to read smoke test state', e);
         state = {};
     }
 

@@ -21,7 +21,7 @@
     "stripe": "^14.8.0",
     "paypal-rest-sdk": "^1.7.1",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.1.2",
+    "jsonwebtoken": "^9.0.2",
     "express-validator": "^7.0.0",
     "uuid": "^9.0.1",
     "express-mongo-sanitize": "^2.2.0"

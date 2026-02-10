@@ -10,15 +10,36 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
-import path from 'path';
 import { fileURLToPath } from 'url';
 import https from 'https';
 
 // Load environment variables
 dotenv.config();
 
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const JWT_SECRET = process.env.JWT_SECRET;
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
+
+if (NODE_ENV === 'production') {
+    const requiredEnv = [
+        'STRIPE_SECRET_KEY',
+        'PAYPAL_CLIENT_ID',
+        'PAYPAL_CLIENT_SECRET',
+        'PAYPAL_WEBHOOK_ID',
+        'JWT_SECRET',
+        'ADMIN_USERNAME',
+        'ADMIN_PASSWORD_HASH',
+    ];
+
+    const missing = requiredEnv.filter(key => !process.env[key]);
+    if (missing.length) {
+        throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+    }
+}
+
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const isMain = process.argv[1] === __filename;
 
 // Initialize Express app
 const app = express();
@@ -82,7 +103,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 // Data sanitization against NoSQL injection
 app.use(mongoSanitize({
     replaceWith: '_',
-    onSanitize: ({ req, key }) => {
+    onSanitize: ({ key }) => {
         console.warn(`Potentially malicious data in ${key} was sanitized`);
     },
 }));
@@ -105,7 +126,7 @@ paypal.configure({
 function generateToken(userId, expiresIn = '24h') {
     return jwt.sign(
         { userId, iat: Date.now() },
-        process.env.JWT_SECRET || 'your-secret-key-change-in-production',
+        JWT_SECRET,
         { expiresIn }
     );
 }
@@ -113,13 +134,14 @@ function generateToken(userId, expiresIn = '24h') {
 // Verify JWT Token
 function verifyToken(token) {
     try {
-        return jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
-    } catch (error) {
+        return jwt.verify(token, JWT_SECRET);
+    } catch {
         return null;
     }
 }
 
 // Authentication Middleware
+// eslint-disable-next-line no-unused-vars
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -149,8 +171,12 @@ app.post('/api/admin/login', authLimiter, async (req, res) => {
         }
 
         // Verify admin credentials (in production, use database)
-        const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-        const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH || await bcryptjs.hash('admin123', 10);
+        if (!ADMIN_USERNAME || !ADMIN_PASSWORD_HASH) {
+            return res.status(500).json({ error: 'Admin credentials not configured' });
+        }
+
+        const adminUsername = ADMIN_USERNAME;
+        const adminPasswordHash = ADMIN_PASSWORD_HASH;
 
         const isValidUsername = username === adminUsername;
         const isValidPassword = await bcryptjs.compare(password, adminPasswordHash);
@@ -239,6 +265,25 @@ app.post('/api/payments/stripe/confirm', paymentLimiter, async (req, res) => {
         res.status(500).json({ error: 'Failed to confirm payment' });
     }
 });
+
+async function verifyStripePayment(paymentIntentId, expectedTotal) {
+    const paymentIntent = await stripeClient.paymentIntents.retrieve(paymentIntentId);
+    const expectedAmount = Math.round(Number(expectedTotal) * 100);
+
+    if (paymentIntent.status !== 'succeeded') {
+        return { valid: false, error: `Payment ${paymentIntent.status}` };
+    }
+
+    if (Number.isNaN(expectedAmount) || expectedAmount <= 0) {
+        return { valid: false, error: 'Invalid order total' };
+    }
+
+    if (paymentIntent.amount !== expectedAmount) {
+        return { valid: false, error: 'Order total does not match payment amount' };
+    }
+
+    return { valid: true, paymentIntent };
+}
 
 // Create PayPal Payment
 app.post('/api/payments/paypal/create', paymentLimiter, async (req, res) => {
@@ -350,6 +395,21 @@ app.post('/api/orders', paymentLimiter, async (req, res) => {
             return res.status(400).json({ error: 'Customer information required' });
         }
 
+        if (!paymentMethod) {
+            return res.status(400).json({ error: 'Payment method required' });
+        }
+
+        if (paymentMethod === 'stripe') {
+            if (!paymentIntentId) {
+                return res.status(400).json({ error: 'Payment intent ID required' });
+            }
+
+            const verification = await verifyStripePayment(paymentIntentId, total);
+            if (!verification.valid) {
+                return res.status(400).json({ error: verification.error });
+            }
+        }
+
         const orderId = `ORDER-${Date.now()}-${uuidv4().substring(0, 8)}`;
 
         const order = {
@@ -413,6 +473,7 @@ app.get('/api/health', (req, res) => {
 
 // ==================== ERROR HANDLING ====================
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     console.error('Unhandled error:', err);
     res.status(err.status || 500).json({
@@ -429,27 +490,28 @@ app.use((req, res) => {
 // ==================== SERVER STARTUP ====================
 
 const PORT = process.env.PORT || 3000;
-const NODE_ENV = process.env.NODE_ENV || 'development';
 
-if (NODE_ENV === 'production' && process.env.SSL_KEY_PATH && process.env.SSL_CERT_PATH) {
-    // HTTPS Server
-    const privateKey = fs.readFileSync(process.env.SSL_KEY_PATH, 'utf8');
-    const certificate = fs.readFileSync(process.env.SSL_CERT_PATH, 'utf8');
-    const credentials = { key: privateKey, cert: certificate };
-    
-    https.createServer(credentials, app).listen(PORT, () => {
-        console.log(`🔒 Secure server running on https://localhost:${PORT}`);
-        console.log(`Environment: ${NODE_ENV}`);
-    });
-} else {
-    // HTTP Server (development only)
-    app.listen(PORT, () => {
-        console.log(`🚀 Server running on http://localhost:${PORT}`);
-        console.log(`Environment: ${NODE_ENV}`);
-        if (NODE_ENV !== 'production') {
-            console.log('⚠️  WARNING: Running in development mode. Use HTTPS in production!');
-        }
-    });
+if (isMain) {
+    if (NODE_ENV === 'production' && process.env.SSL_KEY_PATH && process.env.SSL_CERT_PATH) {
+        // HTTPS Server
+        const privateKey = fs.readFileSync(process.env.SSL_KEY_PATH, 'utf8');
+        const certificate = fs.readFileSync(process.env.SSL_CERT_PATH, 'utf8');
+        const credentials = { key: privateKey, cert: certificate };
+
+        https.createServer(credentials, app).listen(PORT, () => {
+            console.log(`🔒 Secure server running on https://localhost:${PORT}`);
+            console.log(`Environment: ${NODE_ENV}`);
+        });
+    } else {
+        // HTTP Server (development only)
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on http://localhost:${PORT}`);
+            console.log(`Environment: ${NODE_ENV}`);
+            if (NODE_ENV !== 'production') {
+                console.log('⚠️  WARNING: Running in development mode. Use HTTPS in production!');
+            }
+        });
+    }
 }
 
 export default app;

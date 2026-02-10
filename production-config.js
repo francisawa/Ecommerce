@@ -4,6 +4,11 @@
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
+const server = app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+});
+
 // Graceful shutdown
 process.on('SIGTERM', () => {
     console.log('SIGTERM received. Shutting down gracefully...');

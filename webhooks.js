@@ -1,7 +1,6 @@
 import express from 'express';
 import stripe from 'stripe';
 import paypal from 'paypal-rest-sdk';
-import crypto from 'crypto';
 
 const router = express.Router();
 const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
@@ -198,10 +197,24 @@ async function verifyPayPalWebhook(
     transmission_sig
 ) {
     try {
-        // In production, download and verify certificate
-        // For now, return true (implement full verification as needed)
-        console.log(`Verifying PayPal webhook: ${webhook_id}`);
-        return true;
+        const headers = {
+            transmission_id,
+            transmission_time,
+            cert_url,
+            auth_algo,
+            transmission_sig,
+        };
+
+        return await new Promise((resolve, reject) => {
+            paypal.notification.webhookEvent.verify(headers, webhook_body, webhook_id, (error, response) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                resolve(response && response.verification_status === 'SUCCESS');
+            });
+        });
     } catch (error) {
         console.error('PayPal signature verification error:', error);
         return false;
