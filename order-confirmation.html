@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,34 +10,46 @@
 </head>
 <body class="page-order-confirmation">
     <header>
-        <h1>🛍️ threepeakviews.com</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <div class="nav-dropdown">
-                <a href="shop.html">Shop ▼</a>
-                <div class="dropdown-content">
-                    <a href="shop.html">Browse Products</a>
-                    <a href="auctions.html">Auctions</a>
-                    <a href="paintings.html">Paintings</a>
-                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
-                </div>
+    <h1>threepeakviews.com</h1>
+
+    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+            <a href="shop.html" aria-haspopup="true">Shop </a>
+            <div class="dropdown-content">
+                <a href="shop.html">Browse Products</a>
+                <a href="auctions.html">Auctions</a>
+                <a href="paintings.html">Paintings</a>
+                <a href="Eagle_Shop.html">  Eagle Shop</a>
             </div>
-            <div class="nav-dropdown">
-                <a href="about.html">About ▼</a>
-                <div class="dropdown-content">
-                    <a href="about.html">Our Story</a>
-                    <a href="about.html#mission">Our Mission</a>
-                    <a href="about.html#team">Our Team</a>
-                </div>
+        </div>
+
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-dropdown">
+            <a href="about.html" aria-haspopup="true">About </a>
+            <div class="dropdown-content">
+                <a href="about.html">Our Story</a>
+                <a href="about.html#mission">Our Mission</a>
+                <a href="about.html#team">Our Team</a>
             </div>
-            <a href="account.html">Account</a>
-            <a href="admin.html">Admin</a>
-        </nav>
-    </header>
+        </div>
+
+        <a href="account.html">Account</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
 
     <div class="confirmation-container">
         <div class="confirmation-card">
-            <div class="success-icon">✅</div>
+            <div class="success-icon"></div>
             <h1>Order Confirmed!</h1>
             <p>Thank you for your purchase. Your order has been successfully placed.</p>
 
@@ -63,7 +75,7 @@
             </div>
 
             <div class="next-steps">
-                <h4>📋 What's Next?</h4>
+                <h4> What's Next?</h4>
                 <ol>
                     <li>You will receive a confirmation email shortly with all order details</li>
                     <li>Your payment has been processed securely</li>
@@ -79,7 +91,7 @@
             </div>
 
             <p class="text-muted mt-20 text-sm">
-                📧 Check your email for a detailed receipt and tracking information
+                 Check your email for a detailed receipt and tracking information
             </p>
         </div>
     </div>
@@ -91,6 +103,8 @@
     <script src="scripts.js"></script>
 </body>
 </html>
+
+
 
 
 

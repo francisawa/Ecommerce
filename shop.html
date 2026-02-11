@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 <title>Shop - threepeakviews.com</title>
 <meta charset="utf-8">
@@ -8,41 +8,57 @@
 </head>
 <body class="page-shop">
 <header>
-    <div class="header-top">
-        <h1>🛍️ threepeakviews.com Shop</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <div class="nav-dropdown">
-                <a href="shop.html">Shop ▼</a>
-                <div class="dropdown-content">
-                    <a href="shop.html">Browse Products</a>
-                    <a href="auctions.html">Auctions</a>
-                    <a href="paintings.html">Paintings</a>
-                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
-                </div>
+    <h1>threepeakviews.com</h1>
+
+    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+            <a href="shop.html" aria-haspopup="true">Shop ▼</a>
+            <div class="dropdown-content">
+                <a href="shop.html">Browse Products</a>
+                <a href="auctions.html">Auctions</a>
+                <a href="paintings.html">Paintings</a>
+                <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
             </div>
-            <a href="contact.html">Contact</a>
-            <div class="nav-dropdown">
-                <a href="about.html">About ▼</a>
-                <div class="dropdown-content">
-                    <a href="about.html">Our Story</a>
-                    <a href="about.html#mission">Our Mission</a>
-                    <a href="about.html#team">Our Team</a>
-                </div>
+        </div>
+
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-dropdown">
+            <a href="about.html" aria-haspopup="true">About ▼</a>
+            <div class="dropdown-content">
+                <a href="about.html">Our Story</a>
+                <a href="about.html#mission">Our Mission</a>
+                <a href="about.html#team">Our Team</a>
             </div>
-            <a href="account.html">Account</a>
-            <a href="admin.html">Admin</a>
-        </nav>
-    </div>
-    
-    <div class="header-controls">
-        <input type="text" class="search-box" id="searchInput" placeholder="Search products..." />
-        <button class="search-btn" id="searchBtn">🔍 Search</button>
+        </div>
+
+        <a href="account.html">Account</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+    <div class="header-actions">
+        <div class="search-group">
+            <input type="text" class="search-box" id="searchInput" placeholder="Search products..." />
+            <button class="search-btn" id="searchBtn" aria-label="Search">Search</button>
+        </div>
         <div id="user-status" class="user-menu"></div>
         <div id="header-cart">
-            <h3>Cart</h3>
+            <div class="cart-header">
+                <h3>Cart</h3>
+                <span class="cart-count"><span data-cart-count>0</span> items</span>
+            </div>
             <ul id="cart-items"></ul>
-            <div id="cart-summary">Total: $<span id="cart-summary-total">0.00</span></div>
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <strong>$<span data-cart-subtotal>0.00</span></strong>
+            </div>
             <button id="checkout-btn">Checkout</button>
         </div>
     </div>
@@ -52,8 +68,8 @@
     <div class="controls-top">
         <h2>Shop All Products</h2>
         <div class="cart-summary">
-            <span>Cart: <span id="cart-count">0</span> items</span>
-            <span>Total: $<span id="cart-total">0.00</span></span>
+            <span>Cart: <span data-cart-count>0</span> items</span>
+            <span>Total: $<span data-cart-total>0.00</span></span>
         </div>
     </div>
 
@@ -78,6 +94,8 @@
 <script src="scripts.js"></script>
 </body>
 </html>
+
+
 
 
 

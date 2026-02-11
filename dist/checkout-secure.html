@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout - threepeakviews.com</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    
+<script defer="" crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/styles-DhXf1aE_.css">
+</head>
+<body class="page-checkout-secure">
+    <header>
+    <h1>threepeakviews.com</h1>
+
+    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+            <a href="shop.html" aria-haspopup="true">Shop </a>
+            <div class="dropdown-content">
+                <a href="shop.html">Browse Products</a>
+                <a href="auctions.html">Auctions</a>
+                <a href="paintings.html">Paintings</a>
+                <a href="Eagle_Shop.html">  Eagle Shop</a>
+            </div>
+        </div>
+
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-dropdown">
+            <a href="about.html" aria-haspopup="true">About </a>
+            <div class="dropdown-content">
+                <a href="about.html">Our Story</a>
+                <a href="about.html#mission">Our Mission</a>
+                <a href="about.html#team">Our Team</a>
+            </div>
+        </div>
+
+        <a href="account.html">Account</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
+
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <button class="back-btn" id="checkoutSecureBackBtn">← Back to Shopping</button>
+            
+            <div id="userStatus" class="user-status is-hidden">
+                <small>Logged in as: <span id="userEmail"></span> | <a href="account.html" class="link-primary">View Account</a> | <a href="account.html" id="checkoutLogout" class="link-danger">Logout</a></small>
+            </div>
+            
+            <div id="alert-container"></div>
+
+            <form id="checkout-form">
+                <!-- Shipping Information -->
+                <div class="form-section">
+                    <h3>📮 Shipping Address</h3>
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="(123) 456-7890">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Street Address *</label>
+                        <input type="text" id="address" required placeholder="123 Main Street">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" required placeholder="San Francisco">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State/Province *</label>
+                            <input type="text" id="state" required placeholder="CA">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zip">Postal Code *</label>
+                            <input type="text" id="zip" required placeholder="94105">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method Selection -->
+                <div class="form-section">
+                    <h3>💳 Payment Method</h3>
+                    <div class="payment-methods">
+                        <button type="button" class="payment-method-btn active" data-method="stripe">
+                            🔒 Credit/Debit Card (Stripe)
+                        </button>
+                        <button type="button" class="payment-method-btn" data-method="paypal">
+                            🅿️ PayPal
+                        </button>
+                    </div>
+
+                    <!-- Stripe Payment -->
+                    <div id="stripe-section" class="active">
+                        <div class="form-group">
+                            <label for="card-element">Card Details</label>
+                            <div id="card-element"></div>
+                            <div id="card-errors" class="stripe-error"></div>
+                        </div>
+                    </div>
+
+                    <!-- PayPal Payment -->
+                    <div id="paypal-section">
+                        <p class="text-muted text-sm">
+                            After clicking "Complete Purchase", you will be redirected to PayPal to complete your payment securely.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Terms & Conditions -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms" class="inline ml-8">
+                            I agree to the <a href="terms.html" class="link-primary">Terms & Conditions</a> and <a href="privacy.html" class="link-primary">Privacy Policy</a>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">Complete Purchase</button>
+
+                <div class="security-badge">
+                    🔒 Your payment information is encrypted and secure
+                </div>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h3>📋 Order Summary</h3>
+            <div id="items-list"></div>
+            <div class="order-total">
+                Total: $<span id="total-amount">0.00</span>
+            </div>
+            <p class="text-muted text-xs mt-10">
+                Free shipping on orders over $50
+            </p>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 threepeakviews.com. All rights reserved. | Secured by Stripe & PayPal</p>
+    </footer>
+
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

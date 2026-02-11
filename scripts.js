@@ -91,33 +91,62 @@ class Cart {
     }
 
     updateUI() {
-        const countElems = document.querySelectorAll('#cart-count');
-        const totalElems = document.querySelectorAll('#cart-total');
+        const countElems = document.querySelectorAll('[data-cart-count]');
+        const totalElems = document.querySelectorAll('[data-cart-total]');
         const cartItemsElem = document.getElementById('cart-items');
-        const cartSummaryElem = document.getElementById('cart-summary-total');
+        const cartSummaryElem = document.querySelector('[data-cart-subtotal]');
 
         countElems.forEach(elem => elem.textContent = this.getCount());
         totalElems.forEach(elem => elem.textContent = this.getTotal().toFixed(2));
 
         if (cartItemsElem) {
             cartItemsElem.innerHTML = '';
-            this.items.forEach(item => {
-                const li = document.createElement('li');
-                li.id = 'cart-item-' + item.id;
 
-                const label = document.createElement('span');
-                label.textContent = `${item.name}: $${item.price.toFixed(2)} x${item.quantity}`;
+            if (this.items.length === 0) {
+                const empty = document.createElement('li');
+                empty.className = 'cart-empty';
+                empty.textContent = 'Your cart is empty';
+                cartItemsElem.appendChild(empty);
+            } else {
+                this.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.id = 'cart-item-' + item.id;
+                    li.className = 'cart-item';
 
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.className = 'remove-btn';
-                removeBtn.textContent = 'Remove';
-                removeBtn.addEventListener('click', () => this.removeItem(item.id));
+                    const thumb = document.createElement('div');
+                    thumb.className = 'cart-thumb';
+                    thumb.textContent = item.image || '📦';
 
-                li.appendChild(label);
-                li.appendChild(removeBtn);
-                cartItemsElem.appendChild(li);
-            });
+                    const meta = document.createElement('div');
+                    meta.className = 'cart-meta';
+
+                    const title = document.createElement('div');
+                    title.className = 'cart-title';
+                    title.textContent = item.name;
+
+                    const line = document.createElement('div');
+                    line.className = 'cart-line';
+                    line.innerHTML = `
+                        <span class="cart-price">$${item.price.toFixed(2)}</span>
+                        <span class="cart-qty">Qty ${item.quantity}</span>
+                        <span class="cart-total">$${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+
+                    meta.appendChild(title);
+                    meta.appendChild(line);
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.type = 'button';
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.textContent = 'Remove';
+                    removeBtn.addEventListener('click', () => this.removeItem(item.id));
+
+                    li.appendChild(thumb);
+                    li.appendChild(meta);
+                    li.appendChild(removeBtn);
+                    cartItemsElem.appendChild(li);
+                });
+            }
         }
 
         if (cartSummaryElem) {

@@ -10,6 +10,7 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import https from 'https';
 
@@ -46,23 +47,52 @@ const app = express();
 
 // ==================== SECURITY MIDDLEWARE ====================
 
-// Helmet: Set security HTTP headers
+// Helmet: Set security HTTP headers (CSP set below)
 app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "https://js.stripe.com", "https://connect.facebook.net"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "https://api.stripe.com", "https://api.paypal.com"],
-        },
-    },
+    contentSecurityPolicy: false,
     strictTransportSecurity: {
         maxAge: 31536000,
         includeSubDomains: true,
         preload: true,
     },
 }));
+
+// CSP nonce generator
+app.use((req, res, next) => {
+    res.locals.cspNonce = crypto.randomBytes(16).toString('base64');
+    next();
+});
+
+// Content Security Policy with reporting
+app.use((req, res, next) => {
+    const nonce = res.locals.cspNonce;
+    const reportEndpoint = '/api/csp-report';
+
+    const csp = [
+        "default-src 'self'",
+        `script-src 'self' 'nonce-${nonce}' https://js.stripe.com https://www.paypal.com https://static.parastorage.com https://connect.facebook.net`,
+        "style-src 'self'",
+        "img-src 'self' data: https:",
+        "connect-src 'self' https://api.stripe.com https://api.paypal.com https://www.paypal.com",
+        "frame-src 'self' https://js.stripe.com https://www.paypal.com https://hooks.stripe.com",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "frame-ancestors 'none'",
+        `report-uri ${reportEndpoint}`,
+        "report-to csp-endpoint",
+    ].join('; ');
+
+    const reportTo = {
+        group: 'csp-endpoint',
+        max_age: 10886400,
+        endpoints: [{ url: reportEndpoint }],
+    };
+
+    res.setHeader('Content-Security-Policy', csp);
+    res.setHeader('Report-To', JSON.stringify(reportTo));
+    res.setHeader('Reporting-Endpoints', `csp-endpoint="${reportEndpoint}"`);
+    next();
+});
 
 // CORS: Cross-Origin Resource Sharing
 const corsOptions = {
@@ -97,7 +127,10 @@ const paymentLimiter = rateLimit({
 app.use(limiter);
 
 // Body Parser & Sanitization
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({
+    limit: '10mb',
+    type: ['application/json', 'application/csp-report', 'application/reports+json'],
+}));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // Data sanitization against NoSQL injection
@@ -469,6 +502,17 @@ app.get('/api/health', (req, res) => {
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development',
     });
+});
+
+// ==================== CSP REPORTING ====================
+
+app.post('/api/csp-report', (req, res) => {
+    console.warn('CSP Violation Report:', {
+        ip: req.ip,
+        userAgent: req.get('user-agent'),
+        report: req.body,
+    });
+    res.status(204).end();
 });
 
 // ==================== ERROR HANDLING ====================

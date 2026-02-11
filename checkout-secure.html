@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,35 +11,46 @@
 </head>
 <body class="page-checkout-secure">
     <header>
-        <h1>🛍️ threepeakviews.com</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <div class="nav-dropdown">
-                <a href="shop.html">Shop ▼</a>
-                <div class="dropdown-content">
-                    <a href="shop.html">Browse Products</a>
-                    <a href="auctions.html">Auctions</a>
-                    <a href="paintings.html">Paintings</a>
-                    <a href="Eagle_Shop.html">🦅 Eagle Shop</a>
-                </div>
+    <h1>threepeakviews.com</h1>
+
+    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+            <a href="shop.html" aria-haspopup="true">Shop </a>
+            <div class="dropdown-content">
+                <a href="shop.html">Browse Products</a>
+                <a href="auctions.html">Auctions</a>
+                <a href="paintings.html">Paintings</a>
+                <a href="Eagle_Shop.html">  Eagle Shop</a>
             </div>
-            <a href="contact.html">Contact</a>
-            <div class="nav-dropdown">
-                <a href="about.html">About ▼</a>
-                <div class="dropdown-content">
-                    <a href="about.html">Our Story</a>
-                    <a href="about.html#mission">Our Mission</a>
-                    <a href="about.html#team">Our Team</a>
-                </div>
+        </div>
+
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-dropdown">
+            <a href="about.html" aria-haspopup="true">About </a>
+            <div class="dropdown-content">
+                <a href="about.html">Our Story</a>
+                <a href="about.html#mission">Our Mission</a>
+                <a href="about.html#team">Our Team</a>
             </div>
-            <a href="account.html">Account</a>
-            <a href="admin.html">Admin</a>
-        </nav>
-    </header>
+        </div>
+
+        <a href="account.html">Account</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
 
     <div class="checkout-container">
         <div class="checkout-form">
-            <button class="back-btn" id="checkoutSecureBackBtn">← Back to Shopping</button>
+            <button class="back-btn" id="checkoutSecureBackBtn"> Back to Shopping</button>
             
             <div id="userStatus" class="user-status is-hidden">
                 <small>Logged in as: <span id="userEmail"></span> | <a href="account.html" class="link-primary">View Account</a> | <a href="account.html" id="checkoutLogout" class="link-danger">Logout</a></small>
@@ -50,7 +61,7 @@
             <form id="checkout-form">
                 <!-- Shipping Information -->
                 <div class="form-section">
-                    <h3>📮 Shipping Address</h3>
+                    <h3> Shipping Address</h3>
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
                         <input type="text" id="fullName" required placeholder="John Doe">
@@ -97,13 +108,13 @@
 
                 <!-- Payment Method Selection -->
                 <div class="form-section">
-                    <h3>💳 Payment Method</h3>
+                    <h3> Payment Method</h3>
                     <div class="payment-methods">
                         <button type="button" class="payment-method-btn active" data-method="stripe">
-                            🔒 Credit/Debit Card (Stripe)
+                             Credit/Debit Card (Stripe)
                         </button>
                         <button type="button" class="payment-method-btn" data-method="paypal">
-                            🅿️ PayPal
+                             PayPal
                         </button>
                     </div>
 
@@ -137,14 +148,14 @@
                 <button type="submit" class="submit-btn" id="submit-btn">Complete Purchase</button>
 
                 <div class="security-badge">
-                    🔒 Your payment information is encrypted and secure
+                     Your payment information is encrypted and secure
                 </div>
             </form>
         </div>
 
         <!-- Order Summary -->
         <div class="order-summary">
-            <h3>📋 Order Summary</h3>
+            <h3> Order Summary</h3>
             <div id="items-list"></div>
             <div class="order-total">
                 Total: $<span id="total-amount">0.00</span>
@@ -170,6 +181,8 @@
     <script src="scripts.js"></script>
 </body>
 </html>
+
+
 
 
 

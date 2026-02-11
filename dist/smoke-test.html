@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoke Test Checklist - threepeakviews.com</title>
+    <script defer crossorigin="" src="https://static.parastorage.com/unpkg/@sentry/browser@6.19.7/build/bundle.min.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/styles-DhXf1aE_.css">
+</head>
+<body class="page-smoke-test">
+    <header>
+    <h1>threepeakviews.com</h1>
+
+    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+            <a href="shop.html" aria-haspopup="true">Shop </a>
+            <div class="dropdown-content">
+                <a href="shop.html">Browse Products</a>
+                <a href="auctions.html">Auctions</a>
+                <a href="paintings.html">Paintings</a>
+                <a href="Eagle_Shop.html">  Eagle Shop</a>
+            </div>
+        </div>
+
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-dropdown">
+            <a href="about.html" aria-haspopup="true">About </a>
+            <div class="dropdown-content">
+                <a href="about.html">Our Story</a>
+                <a href="about.html#mission">Our Mission</a>
+                <a href="about.html#team">Our Team</a>
+            </div>
+        </div>
+
+        <a href="account.html">Account</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+</header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Quick Checks</h2>
+            <p class="text-muted">Use this list to confirm DOM handlers on each page. Your progress is saved locally.</p>
+            <ul class="checklist" id="smokeChecklist">
+                <li><label><input type="checkbox" data-key="heroShopBtn"> Index: Hero button navigates to shop</label></li>
+                <li><label><input type="checkbox" data-key="shopSearch"> Shop: Search button and Enter key filter products</label></li>
+                <li><label><input type="checkbox" data-key="shopCheckout"> Shop: Checkout button navigates to secure checkout</label></li>
+                <li><label><input type="checkbox" data-key="auctionsBid"> Auctions: Place Bid updates current bid</label></li>
+                <li><label><input type="checkbox" data-key="paintingsFilters"> Paintings: Filters switch categories</label></li>
+                <li><label><input type="checkbox" data-key="paintingsModal"> Paintings: Card opens modal and close works</label></li>
+                <li><label><input type="checkbox" data-key="contactForm"> Contact: Submit shows thank-you alert</label></li>
+                <li><label><input type="checkbox" data-key="accountTabs"> Account: Tab links switch signup/login</label></li>
+                <li><label><input type="checkbox" data-key="adminLogin"> Admin: Login and logout flow works</label></li>
+                <li><label><input type="checkbox" data-key="adminActions"> Admin: Edit/delete buttons work</label></li>
+                <li><label><input type="checkbox" data-key="checkoutBack"> Checkout: Back button returns to shop</label></li>
+                <li><label><input type="checkbox" data-key="checkoutPurchase"> Checkout: Complete Purchase triggers process order</label></li>
+                <li><label><input type="checkbox" data-key="orderReceipt"> Order confirmation: Download receipt works</label></li>
+                <li><label><input type="checkbox" data-key="secureLogout"> Secure checkout: Logout link works</label></li>
+            </ul>
+            <div class="mt-16">
+                <button class="btn btn-secondary" id="resetChecklistBtn" type="button">Reset checklist</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 threepeakviews.com. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
