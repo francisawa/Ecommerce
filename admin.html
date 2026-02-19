@@ -58,11 +58,11 @@
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="adminName">Admin Name</label>
-                        <input type="text" id="adminName" placeholder="Enter admin name" required value="Francis">
+                        <input type="text" id="adminName" placeholder="Enter admin name" required>
                     </div>
                     <div class="form-group">
                         <label for="adminPassword">Password</label>
-                        <input type="password" id="adminPassword" placeholder="Enter password" required autofocus value="Obed2">
+                        <input type="password" id="adminPassword" placeholder="Enter password" required autofocus>
                     </div>
                     <button type="submit" class="btn-primary">Login</button>
                     <div id="loginMessage" class="message error is-hidden"></div>
@@ -84,6 +84,7 @@
             <div class="tabs">
                 <button class="tab-btn active" data-tab="add">Add Product</button>
                 <button class="tab-btn" data-tab="manage">Manage Products</button>
+                <button class="tab-btn" data-tab="sales">Sales / Orders</button>
             </div>
 
             <!-- Add Product Tab -->
@@ -123,6 +124,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="productImage">Product Photo (optional)</label>
+                        <input type="file" id="productImage" accept="image/*">
+                        <div id="productImagePreview" class="image-preview is-hidden" aria-live="polite"></div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="productDescription">Description</label>
                         <textarea id="productDescription" rows="4" required placeholder="Detailed product description..."></textarea>
                     </div>
@@ -150,6 +157,58 @@
                         </tr>
                     </thead>
                     <tbody id="productsBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Sales / Orders Tab -->
+            <div class="tab-content" id="sales">
+                <div class="flex align-center justify-between">
+                    <h3>Sales / Orders</h3>
+                    <button type="button" class="cancel-btn" id="exportOrdersCsvBtn">Export CSV</button>
+                </div>
+
+                <div id="salesMessage" class="message is-hidden"></div>
+                <div class="mt-20" id="salesSummary"></div>
+
+                <table class="products-table mt-20">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody"></tbody>
+                </table>
+
+                <h3 class="mt-32">Clients</h3>
+                <table class="products-table mt-20">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Total Orders</th>
+                            <th>Total Spend</th>
+                            <th>Last Order</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientsBody"></tbody>
+                </table>
+
+                <h3 class="mt-32">Complaints / Messages</h3>
+                <table class="products-table mt-20">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messagesBody"></tbody>
                 </table>
             </div>
         </div>
@@ -192,6 +251,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="editImage">Product Photo (optional)</label>
+                    <input type="file" id="editImage" accept="image/*">
+                    <div id="editImagePreview" class="image-preview is-hidden" aria-live="polite"></div>
+                </div>
+
+                <div class="form-group">
                     <label for="editDescription">Description</label>
                     <textarea id="editDescription" rows="4" required></textarea>
                 </div>
@@ -204,7 +269,7 @@
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <script type="module" src="scripts.js"></script>
 </body>
 </html>
 

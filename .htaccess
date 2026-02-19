@@ -1,0 +1,51 @@
+# -----------------------------
+# Security headers
+# -----------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# -----------------------------
+# Compression
+# -----------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# -----------------------------
+# Caching policy
+# -----------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# -----------------------------
+# Deny sensitive files
+# -----------------------------
+<FilesMatch "^(\.env|package\.json|package-lock\.json|server\.js|webhooks\.js|production-config\.js)$">
+  Require all denied
+</FilesMatch>
+
+# -----------------------------
+# Basic rewrite fallback
+# -----------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # If SiteGround leaves a placeholder Default.html, force it to your real homepage
+  RewriteRule ^Default\.html$ /index.html [R=302,L,NC]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^$ index.html [L]
+</IfModule>

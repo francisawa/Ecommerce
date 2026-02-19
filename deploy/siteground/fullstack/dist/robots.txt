@@ -1,0 +1,9 @@
+User-agent: *
+Crawl-delay: 10
+Allow: /
+
+# Block private/supporting assets if ever published
+Disallow: /.env
+Disallow: /node_modules/
+
+Sitemap: https://threepeakviews.com/sitemap.xml

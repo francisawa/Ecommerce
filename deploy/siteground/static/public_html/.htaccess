@@ -1,0 +1,32 @@
+# Prefer static entrypoint
+DirectoryIndex index.html index.php
+
+# If SiteGround leaves a placeholder Default.html, force it to your real homepage
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^Default.html$ /index.html [R=302,L,NC]
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Cache static assets aggressively
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# Protect sensitive files
+<FilesMatch "^(\.env|package-lock\.json|package\.json)$">
+  Require all denied
+</FilesMatch>
