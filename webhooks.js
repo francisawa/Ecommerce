@@ -1,6 +1,7 @@
 import express from 'express';
 import stripe from 'stripe';
 import paypal from 'paypal-rest-sdk';
+import { sendOrderConfirmationEmail, sendRefundEmail, sendAdminAlert } from './emailService.js';
 
 const router = express.Router();
 const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
@@ -109,8 +110,9 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
         //     { paymentIntentId: paymentIntent.id },
         //     { status: 'paid', updatedAt: new Date() }
         // );
-        // Send confirmation email
-        // await sendOrderConfirmationEmail(order);
+        // Example order object for email:
+        const order = { id: paymentIntent.id, customer: { email: paymentIntent.receipt_email || 'customer@ecommerce.com' } };
+        await sendOrderConfirmationEmail(order);
     } catch (error) {
         console.error('Error handling payment success:', error);
     }
@@ -139,8 +141,9 @@ async function handleRefund(charge) {
         //     { chargeId: charge.id },
         //     { status: 'refunded', refundedAt: new Date() }
         // );
-        // Send refund email
-        // await sendRefundEmail(order);
+        // Example order object for email:
+        const order = { id: charge.id, customer: { email: charge.billing_details?.email || 'customer@ecommerce.com' } };
+        await sendRefundEmail(order);
     } catch (error) {
         console.error('Error handling refund:', error);
     }
@@ -149,8 +152,7 @@ async function handleRefund(charge) {
 async function handleDispute(charge) {
     try {
         console.log(`⚠️ Dispute Created: ${charge.id}`);
-        // Alert admin
-        // await sendAdminAlert(`Dispute created for charge ${charge.id}`);
+        await sendAdminAlert(`Dispute created for charge ${charge.id}`);
     } catch (error) {
         console.error('Error handling dispute:', error);
     }
