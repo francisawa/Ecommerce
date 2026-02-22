@@ -85,6 +85,44 @@
                 <button class="tab-btn active" data-tab="add">Add Product</button>
                 <button class="tab-btn" data-tab="manage">Manage Products</button>
                 <button class="tab-btn" data-tab="sales">Sales / Orders</button>
+                <button class="tab-btn" data-tab="team">Team Members</button>
+                        <!-- Team Members Tab -->
+                        <div class="tab-content" id="team">
+                            <h3>Team Members</h3>
+                            <div id="teamMessage" class="message is-hidden"></div>
+                            <form id="teamMemberForm" class="mb-20">
+                                <input type="hidden" id="teamMemberId">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="teamMemberName">Name</label>
+                                        <input type="text" id="teamMemberName" required placeholder="e.g. Jane Doe">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teamMemberRole">Role</label>
+                                        <input type="text" id="teamMemberRole" required placeholder="e.g. Manager">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teamMemberEmail">Email</label>
+                                        <input type="email" id="teamMemberEmail" required placeholder="jane@example.com">
+                                    </div>
+                                </div>
+                                <div class="mt-12 flex gap-12">
+                                    <button type="submit" class="btn-primary">Save Member</button>
+                                    <button type="button" class="cancel-btn" id="cancelTeamEdit">Cancel</button>
+                                </div>
+                            </form>
+                            <table class="products-table mt-20">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teamBody"></tbody>
+                            </table>
+                        </div>
             </div>
 
             <!-- Add Product Tab -->

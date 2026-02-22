@@ -1,3 +1,92 @@
+    // ================= TEAM MEMBERS =================
+    let teamMembers = [];
+    function loadTeamMembers() {
+        teamMembers = safeParseArray(localStorage.getItem('teamMembers'));
+        renderTeamTable();
+    }
+    function saveTeamMembers() {
+        localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
+    }
+    function renderTeamTable() {
+        const tbody = document.getElementById('teamBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        if (teamMembers.length === 0) {
+            renderEmptyRow(tbody, 4, 'No team members added yet');
+            return;
+        }
+        teamMembers.forEach(member => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${member.name}</td><td>${member.role}</td><td>${member.email}</td><td><button type="button" class="edit-btn" data-id="${member.id}">Edit</button> <button type="button" class="delete-btn" data-id="${member.id}">Delete</button></td>`;
+            tbody.appendChild(tr);
+        });
+    }
+    function resetTeamForm() {
+        document.getElementById('teamMemberId').value = '';
+        document.getElementById('teamMemberName').value = '';
+        document.getElementById('teamMemberRole').value = '';
+        document.getElementById('teamMemberEmail').value = '';
+    }
+    document.getElementById('teamMemberForm')?.addEventListener('submit', e => {
+        e.preventDefault();
+        const id = document.getElementById('teamMemberId').value;
+        const name = document.getElementById('teamMemberName').value.trim();
+        const role = document.getElementById('teamMemberRole').value.trim();
+        const email = document.getElementById('teamMemberEmail').value.trim();
+        if (!name || !role || !email) {
+            showMessage('teamMessage', 'Please fill all fields.', 'error');
+            return;
+        }
+        if (id) {
+            // Edit
+            const idx = teamMembers.findIndex(m => m.id == id);
+            if (idx >= 0) {
+                teamMembers[idx] = { id, name, role, email };
+                showMessage('teamMessage', 'Team member updated.', 'success');
+            }
+        } else {
+            // Add
+            teamMembers.push({ id: Date.now(), name, role, email });
+            showMessage('teamMessage', 'Team member added.', 'success');
+        }
+        saveTeamMembers();
+        renderTeamTable();
+        resetTeamForm();
+    });
+    document.getElementById('cancelTeamEdit')?.addEventListener('click', e => {
+        resetTeamForm();
+    });
+    document.getElementById('teamBody')?.addEventListener('click', e => {
+        const target = e.target;
+        if (target.classList.contains('edit-btn')) {
+            const id = target.getAttribute('data-id');
+            const member = teamMembers.find(m => m.id == id);
+            if (member) {
+                document.getElementById('teamMemberId').value = member.id;
+                document.getElementById('teamMemberName').value = member.name;
+                document.getElementById('teamMemberRole').value = member.role;
+                document.getElementById('teamMemberEmail').value = member.email;
+            }
+        } else if (target.classList.contains('delete-btn')) {
+            const id = target.getAttribute('data-id');
+            teamMembers = teamMembers.filter(m => m.id != id);
+            saveTeamMembers();
+            renderTeamTable();
+            showMessage('teamMessage', 'Team member removed.', 'success');
+            resetTeamForm();
+        }
+    });
+    // Tab switching logic
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            const tabId = btn.getAttribute('data-tab');
+            document.getElementById(tabId)?.classList.add('active');
+            if (tabId === 'team') loadTeamMembers();
+        });
+    });
 // Product Data - Default Products
 const defaultProducts = [
     { id: 1, name: 'Premium Shoes', price: 89.99, category: 'footwear', image: '👟', description: 'Comfortable and stylish premium shoes' },
